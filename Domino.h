@@ -20,4 +20,5 @@ struct DominoDealer {
     uniform_int_distribution<int> dist;
 
     void createDeck(int n);
+    Domino pullRandomTile(vector<Domino> &box);
 };

@@ -26,3 +26,11 @@ void DominoDealer::createDeck(int n) {
         }
     }
 }
+Domino DominoDealer::pullRandomTile(vector<Domino> &box) {
+    if(box.empty()) throw runtime_error("No tiles left to pull");
+    uniform_int_distribution<int> dist(0, box.size() - 1);
+    int randomIndex = dist(gen);
+    Domino tile = box[randomIndex];
+    box.erase(box.begin() + randomIndex);
+    return tile;
+}
