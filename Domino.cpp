@@ -37,20 +37,34 @@ Domino DominoDealer::pullRandomTile(vector<Domino> &box) {
     box.erase(box.begin() + randomIndex);
     return tile;
 }
-int DominoDealer::findTileForLeftSide(vector<Domino> &box, int leftValue){
+int DominoDealer::findTileForLeftSide(vector<Domino> &box, Domino tile){
     for(size_t i = 0; i < box.size();i++){
-        if(box[i].left == leftValue or box[i].right == leftValue){
+        if(box[i].left == tile.left or box[i].right == tile.left){
             return i;
         }
     }
     return -1;
 }
 
-int DominoDealer::findTileForRightSide(vector<Domino> &box, int rightValue){
+int DominoDealer::findTileForRightSide(vector<Domino> &box, Domino tile){
     for(size_t i = 0; i < box.size();i++){
-        if(box[i].left == rightValue or box[i].right == rightValue){
+        if(box[i].left == tile.right or box[i].right == tile.right){
             return i;
         }
     }
     return -1;
 }
+
+// int DominoDealer::findTile(vector<Domino> &box, Domino domino) {
+//     for (size_t i = 0; i < box.size(); i++) {
+//         if (box[i].left == value || box[i].right == value) {
+//             return i;
+//         }
+//     }
+//     return -1; 
+// }
+
+
+// void DominoDealer::attachTileToLeftSide(vector<Domino> &box, vector<Domino> &chain, int leftValue){
+//     Domino tile = box
+// }

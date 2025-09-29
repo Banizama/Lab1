@@ -12,5 +12,8 @@ int main() {
     std::cout << std::endl;
     Domino tile1 = dealer.DominoDealer::pullRandomTile(dealer.tiles);
     std::cout << "[" << tile1.left << "|" << tile1.right << "] ";
-
+    std::cout << std::endl;
+    std::cout << dealer.findTileForLeftSide(dealer.tiles, tile1) << std::endl;
+    std::cout << dealer.findTileForRightSide(dealer.tiles, tile1) << std::endl;
+    // std::cout << dealer.findTile(dealer.tiles, tile1);
 }
