@@ -21,4 +21,6 @@ struct DominoDealer {
 
     void createDeck(int n);
     Domino pullRandomTile(vector<Domino> &box);
+    int findTileForLeftSide(vector<Domino> &box, int leftValue);
+    int findTileForRightSide(vector<Domino> &box, int rightValue);
 };

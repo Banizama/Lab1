@@ -34,3 +34,18 @@ Domino DominoDealer::pullRandomTile(vector<Domino> &box) {
     box.erase(box.begin() + randomIndex);
     return tile;
 }
+int DominoDealer::findTileForLeftSide(vector<Domino> &box, int leftValue){
+    for(size_t i = 0; i , box.size();i++){
+        if(box[i].left == leftValue or box[i].right == leftValue){
+            return i;
+        }
+    }
+}
+
+int DominoDealer::findTileForRightSide(vector<Domino> &box, int rightValue){
+    for(size_t i = 0; i , box.size();i++){
+        if(box[i].left == rightValue or box[i].right == rightValue){
+            return i;
+        }
+    }
+}
