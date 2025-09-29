@@ -21,13 +21,16 @@ bool Domino::canAttach(int value) const {
 void DominoDealer::createDeck(int n) {
     tiles.clear();
     for(int i = 0; i <=n; i++){
-        for(int j = i; j <-n; j++){
+        for(int j = i; j <=n; j++){
             tiles.emplace_back(i, j);
         }
     }
 }
 Domino DominoDealer::pullRandomTile(vector<Domino> &box) {
     if(box.empty()) throw runtime_error("No tiles left to pull");
+
+    random_device rd;
+    mt19937 gen(rd());
     uniform_int_distribution<int> dist(0, box.size() - 1);
     int randomIndex = dist(gen);
     Domino tile = box[randomIndex];
@@ -40,6 +43,7 @@ int DominoDealer::findTileForLeftSide(vector<Domino> &box, int leftValue){
             return i;
         }
     }
+    return -1;
 }
 
 int DominoDealer::findTileForRightSide(vector<Domino> &box, int rightValue){
@@ -48,4 +52,5 @@ int DominoDealer::findTileForRightSide(vector<Domino> &box, int rightValue){
             return i;
         }
     }
+    return -1;
 }
