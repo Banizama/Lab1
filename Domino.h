@@ -14,15 +14,17 @@ struct Domino {
 
 struct DominoDealer {
     int n;
-    vector<Domino> tiles;
-    vector<Domino> hand;
+    vector<Domino> box;
+    vector<Domino> chain;
     uniform_int_distribution<int> dist;
 
     void createDeck(int n);
     Domino pullRandomTile(vector<Domino> &box);
-    int findTileForLeftSide(vector<Domino> &box, Domino tile);
-    int findTileForRightSide(vector<Domino> &box, Domino tile);
-    int findTile(vector<Domino> &box, int value);
-//     void attachTileToLeftSide(vector<Domino> &box, vector<Domino> &chain, int leftValue);
-//     void attachTileToRightSide(vector<Domino> &box, vector<Domino> &chain, int rightValue);
+    int findTileForLeftSide(vector<Domino> &chain);
+    int findTileForRightSide(vector<Domino> &chain);
+    // int findTile(vector<Domino> &box, int value);
+    bool canAttachToLeftSide(const vector<Domino> &chain, const Domino &tile);
+    bool canAttachToRightSide(const vector<Domino> &chain, const Domino &tile);
+    void attachTileToLeftSide(vector<Domino> &box, vector<Domino> &chain, int leftValue, int index);
+    void attachTileToRightSide(vector<Domino> &box, vector<Domino> &chain, int rightValue, int index);
 };

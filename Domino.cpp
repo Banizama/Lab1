@@ -19,10 +19,10 @@ bool Domino::canAttach(int value) const {
 }
 
 void DominoDealer::createDeck(int n) {
-    tiles.clear();
+    box.clear();
     for(int i = 0; i <=n; i++){
         for(int j = i; j <=n; j++){
-            tiles.emplace_back(i, j);
+            box.emplace_back(i, j);
         }
     }
 }
@@ -37,34 +37,58 @@ Domino DominoDealer::pullRandomTile(vector<Domino> &box) {
     box.erase(box.begin() + randomIndex);
     return tile;
 }
-int DominoDealer::findTileForLeftSide(vector<Domino> &box, Domino tile){
-    for(size_t i = 0; i < box.size();i++){
-        if(box[i].left == tile.left or box[i].right == tile.left){
-            return i;
-        }
+int DominoDealer::findTileForLeftSide(std::vector<Domino>& chain) {
+    if(chain.empty()) return -1;
+
+    int leftValue = chain.front().left;
+    for (size_t i = 0; i < box.size(); ++i) {
+        if (box[i].canAttach(leftValue)) return i;
     }
     return -1;
 }
 
-int DominoDealer::findTileForRightSide(vector<Domino> &box, Domino tile){
-    for(size_t i = 0; i < box.size();i++){
-        if(box[i].left == tile.right or box[i].right == tile.right){
-            return i;
-        }
+int DominoDealer::findTileForRightSide(std::vector<Domino>& chain) {
+    if(chain.empty()) return -1;
+    
+    int rightValue = chain.back().right;
+    for (size_t i = 0; i < box.size(); ++i) {
+        if (box[i].canAttach(rightValue)) return i;
     }
     return -1;
 }
 
-// int DominoDealer::findTile(vector<Domino> &box, Domino domino) {
-//     for (size_t i = 0; i < box.size(); i++) {
-//         if (box[i].left == value || box[i].right == value) {
-//             return i;
-//         }
-//     }
-//     return -1; 
-// }
+bool DominoDealer::canAttachToLeftSide(const vector<Domino> &chain, const Domino &tile){
+    if(chain.empty()) return true;
 
+    int leftValue = chain.front().left;
+    return tile.canAttach(leftValue);
+}
 
-// void DominoDealer::attachTileToLeftSide(vector<Domino> &box, vector<Domino> &chain, int leftValue){
-//     Domino tile = box
-// }
+bool DominoDealer::canAttachToRightSide(const vector<Domino> &chain, const Domino &tile){
+    if(chain.empty()) return true;
+
+    int leftValue = chain.back().right;
+    return tile.canAttach(leftValue);
+}
+
+void DominoDealer::attachTileToLeftSide(vector<Domino> &box, vector<Domino> &chain, int leftValue, int index) {
+    Domino tile = box[index];
+
+    if (tile.right == leftValue) {
+        std::swap(tile.left, tile.right);
+    }
+
+    chain.insert(chain.begin(), tile);
+    box.erase(box.begin() + index);
+}
+
+void DominoDealer::attachTileToRightSide(vector<Domino> &box, vector<Domino> &chain, int rightValue, int index) {
+    Domino tile = box[index];
+
+    if (tile.left == rightValue) {
+        std::swap(tile.left, tile.right);
+    }
+
+    chain.emplace_back(tile);
+    box.erase(box.begin() + index);
+}
