@@ -12,7 +12,7 @@ struct Domino {
     bool canAttach(int value) const;
 };
 
-struct DominoDealer {
+class DominoDealer {
     int n;
     vector<Domino> box;
     vector<Domino> chain;
@@ -22,9 +22,10 @@ struct DominoDealer {
     Domino pullRandomTile(vector<Domino> &box);
     int findTileForLeftSide(vector<Domino> &chain);
     int findTileForRightSide(vector<Domino> &chain);
-    // int findTile(vector<Domino> &box, int value);
     bool canAttachToLeftSide(const vector<Domino> &chain, const Domino &tile);
     bool canAttachToRightSide(const vector<Domino> &chain, const Domino &tile);
     void attachTileToLeftSide(vector<Domino> &box, vector<Domino> &chain, int leftValue, int index);
     void attachTileToRightSide(vector<Domino> &box, vector<Domino> &chain, int rightValue, int index);
+public:
+    int operator()();
 };

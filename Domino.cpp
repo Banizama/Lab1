@@ -92,3 +92,28 @@ void DominoDealer::attachTileToRightSide(vector<Domino> &box, vector<Domino> &ch
     chain.emplace_back(tile);
     box.erase(box.begin() + index);
 }
+int DominoDealer::operator()() {
+        vector<Domino> chain;
+
+        if(box.empty()) return 0;
+
+        Domino first = pullRandomTile(box);
+        chain.push_back(first);
+        bool attached = true;
+        while(attached && !box.empty()){
+            attached = false;
+
+            int leftIndex = findTileForLeftSide(chain);
+            if(leftIndex != -1){
+                attachTileToLeftSide(box, chain, chain.front().left, leftIndex);
+                attached = true;
+            }
+
+            int rightIndex = findTileForRightSide(chain);
+            if(rightIndex != -1){
+                attachTileToRightSide(box, chain, chain.back().right, rightIndex);
+                attached = true;
+            }
+        }
+        return chain.size();
+}
